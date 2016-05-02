@@ -2,11 +2,10 @@
 import socket
 import random
 from thread import *
-import sys
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 HOST = socket.gethostname()
-PORT = 6031
+PORT = 6015
 tcp.bind((HOST, PORT))
 
 print ("Socket criado com sucesso!!\n")
@@ -17,13 +16,13 @@ tcp.listen(2)
 #
 def clientthread(con):
         while True:
-            guess(con)
+            guess()
         #con.send("Congratulations!!")
 
-        #con.close
+        con.close
 
 #As comparacoes sao feitas dentro desta funcao
-def guess (con):
+def guess ():
     jog1_number = int(con.recv(1024))
     
     if jog1_number == number:  
@@ -38,9 +37,7 @@ def guess (con):
 
         else:
             #print("Try a big number")
-            con.send("Try a big number")
-            
-    con.close    
+            con.send("Try a big number")        
       
 
 #O servidor gera um numero aleatorio entre 1 e 60
