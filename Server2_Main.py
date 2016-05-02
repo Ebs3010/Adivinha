@@ -4,7 +4,7 @@ import random
 import thread
 
 HOST = socket.gethostname()
-PORT = 6055
+PORT = 6072
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcp.bind((HOST, PORT))
@@ -28,9 +28,6 @@ def clientthread(con, client):
                         thread.exit()
 
                         
-
-
-
 #As comparacoes sao feitas dentro desta funcao
 def guess (con):
     jog1_number = int(con.recv(1024))
@@ -51,6 +48,7 @@ number = random.randint(1, 60)
 
 while True:
     con, client = tcp.accept()
+       
     print("Good job!", client)
     print ("Number", number)       
     
