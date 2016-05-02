@@ -1,11 +1,12 @@
 
 import socket
 import random
-from thread import *
+import thread
+
+HOST = socket.gethostname()
+PORT = 6055
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-HOST = socket.gethostname()
-PORT = 6047
 tcp.bind((HOST, PORT))
 
 print ("Socket criado com sucesso!!\n")
@@ -13,9 +14,10 @@ print ("Socket criado com sucesso!!\n")
 #Numeros de conexoes permitidas
 tcp.listen(2)
 
-#
-def clientthread(con):
-        print ("New connection")
+
+#Funcao para tratar multiplas conexoes
+def clientthread(con, client):
+        print ("New connection", client)
         while True:
                 try:
                         guess(con)
@@ -23,7 +25,11 @@ def clientthread(con):
                 except ValueError:
                         print ("Finished conection.", client)
                         con.close()
-                        return 0
+                        thread.exit()
+
+                        
+
+
 
 #As comparacoes sao feitas dentro desta funcao
 def guess (con):
@@ -48,12 +54,10 @@ while True:
     print("Good job!", client)
     print ("Number", number)       
     
-    print "Try to guess the number between 1 and 60:"
-    
-    start_new_thread(clientthread, (con,))
+    print "Try to guess the number between 1 and 60:"    
+    thread.start_new_thread(clientthread, tuple([con, client]))
 
 print ("Finished conection.", client)
-con.close()
 tcp.close()  
         
 
