@@ -7,7 +7,7 @@ HANGMANPICS =['''
 import socket
 
 HOST = socket.gethostname()
-PORT = 6008
+PORT = 6041
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 dest = (HOST, PORT)
