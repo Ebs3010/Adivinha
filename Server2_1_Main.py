@@ -4,7 +4,7 @@ import random
 import thread
 
 HOST = socket.gethostname()
-PORT = 6093
+PORT = 6102
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcp.bind((HOST, PORT))
@@ -29,8 +29,8 @@ def clientthread(con, client):
 def guess (client):
     jog1_number = int(con.recv(1024))
     
-    if jog1_number == number:  
-        con.send("Congratulations!!")
+    if jog1_number == number:
+            con.send('0')
 
     else:        
         if(jog1_number > number):
@@ -48,8 +48,8 @@ while True:
         print("Wainting for conection:\n")
         con, client = tcp.accept()
         print("Good job!", client)
-        
-        print ("Number ", number)       
+                
+        print ("Number: ", number)       
         thread.start_new_thread(clientthread, tuple([con, client]))
 
 print ("Finished conection.\n", client)
